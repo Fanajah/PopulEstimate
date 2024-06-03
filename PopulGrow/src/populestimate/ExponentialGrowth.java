@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Le modèle de croissance exponentielle est l'un des modèles les plus simples
  * et décrit une croissance sans contraintes. 
- * dP/dt = r*P (dy/dt = f(t,y))
+ * * dP/dt = r*P   (dy/dt = f(t,y))
  */
-class ExponentialGrowth {
+class ExponentialGrowth implements SousFonctionEuler {
 
     private double r; // Taux de croissance
     private double P; // Population initiale (y anaty lesona)
@@ -37,10 +37,15 @@ class ExponentialGrowth {
         // w = w + h*f(t,w)
         for (int t = 0; t < steps; t++) {
             population.add(currentP);
-            double dP = r * currentP;
+            double dP = calculateDP(r, currentP);
             currentP += dP * dt;
         }
 
         return population;
+    }
+
+    @Override
+    public double calculateDP(double r, double P) {
+        return r * P;
     }
 }
